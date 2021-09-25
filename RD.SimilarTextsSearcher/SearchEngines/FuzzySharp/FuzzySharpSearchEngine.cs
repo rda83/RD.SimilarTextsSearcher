@@ -4,9 +4,9 @@ using RD.SimilarTextsSearcher.Models;
 
 namespace RD.SimilarTextsSearcher.SearchEngines.FuzzySharp
 {
-    class FuzzySharpSearchEngine : ISearchEngine
+    class FuzzySharpSearchEngine : AbstractSearchEngine
     {
-        public double GetSimilarity(TextsForComparison textsForComparison)
+        public override double GetSimilarity(TextsForComparison textsForComparison)
         {
             //https://github.com/JakeBayer/FuzzySharp
             double result = Levenshtein.GetRatio(textsForComparison.inputText1,

@@ -1,7 +1,10 @@
-﻿using RD.SimilarTextsSearcher.Models;
+﻿using Newtonsoft.Json;
+using RD.SimilarTextsSearcher.Models;
 using RD.SimilarTextsSearcher.SearchEngines;
+using RD.SimilarTextsSearcher.SearchEngines.SimMetricsLibrary;
 using System;
 using System.Collections.Generic;
+
 
 namespace RD.SimilarTextsSearcher.App
 {
@@ -10,9 +13,19 @@ namespace RD.SimilarTextsSearcher.App
         static void Main(string[] args)
         {
 
+
+
             List<SimilarTextsSearcher> SimilarTextsSearchers = new List<SimilarTextsSearcher>();
-            SimilarTextsSearchers.Add(new SimilarTextsSearcher(SearchEngineType.SimMetricsLibrary));
-            SimilarTextsSearchers.Add(new SimilarTextsSearcher(SearchEngineType.FuzzySharp));
+
+            ConfigurationSearchEngine configurationSearchEngine
+                    = new SearchEngines.ConfigurationSearchEngine 
+                        { ConfigurationString = "{\"simMetricType\": \"Levenstein\"}" };
+
+            SimilarTextsSearchers.Add(
+                    new SimilarTextsSearcher(SearchEngineType.SimMetricsLibrary, configurationSearchEngine)
+                    );
+
+            //SimilarTextsSearchers.Add(new SimilarTextsSearcher(SearchEngineType.FuzzySharp));
 
             List<TextsForComparison> textsForComparison = new List<TextsForComparison>();
 

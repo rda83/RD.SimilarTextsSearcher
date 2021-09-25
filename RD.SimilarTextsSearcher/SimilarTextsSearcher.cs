@@ -5,13 +5,13 @@ namespace RD.SimilarTextsSearcher
 {
     public class SimilarTextsSearcher
     {
-        private ISearchEngine _searchEngine;
+        private AbstractSearchEngine _searchEngine;
         public SearchEngineType SearchEngineType { get; }
         
-        public SimilarTextsSearcher(SearchEngineType searchEngineType)
+        public SimilarTextsSearcher(SearchEngineType searchEngineType, ConfigurationSearchEngine conf)
         {
             SearchEngineType = searchEngineType;
-            _searchEngine = SearchEngineFactory.GetSearchEngine(SearchEngineType);
+            _searchEngine = SearchEngineFactory.GetSearchEngine(SearchEngineType, conf);
         }
 
         public double GetSimilarity(TextsForComparison textsForComparison)
