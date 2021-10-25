@@ -12,7 +12,7 @@ namespace RD.SimilarTextsSearcher.SearchEngines.SimMetricsLibrary
         public SimMetricsLibrarySearchEngine(ConfigurationSimMetricsLibrary conf)
         {
 
-            switch (conf.simMetricType)
+            switch (conf.SimMetricType)
             {
                 case SimMetricType.BlockDistance:
                     _stringMetric = new BlockDistance();
@@ -71,10 +71,10 @@ namespace RD.SimilarTextsSearcher.SearchEngines.SimMetricsLibrary
             }
         }
 
-        public override double GetSimilarity(TextsForComparison textsForComparison)
+        public override double GetSimilarity(InputData textsForComparison)
         {
-            double result = _stringMetric.GetSimilarity(textsForComparison.inputText1,
-                                                            textsForComparison.inputText2);
+            double result = _stringMetric.GetSimilarity(textsForComparison.Text1,
+                                                            textsForComparison.Text2);
 
             return result;
         }

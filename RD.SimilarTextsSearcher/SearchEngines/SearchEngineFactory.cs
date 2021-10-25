@@ -1,14 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using RD.SimilarTextsSearcher.SearchEngines.Configurations;
 using RD.SimilarTextsSearcher.SearchEngines.FuzzySharp;
 using RD.SimilarTextsSearcher.SearchEngines.SimMetricsLibrary;
-using SimMetrics.Net;
-using System.Text.Json;
 
 namespace RD.SimilarTextsSearcher.SearchEngines
 {
     public static class SearchEngineFactory
     {
-        public static AbstractSearchEngine GetSearchEngine(SearchEngineType engineType, ConfigurationSearchEngine confEngine)
+        public static AbstractSearchEngine GetSearchEngine(SearchEngineType engineType, IConfigurationFactory confEngine)
         {
             AbstractSearchEngine searchEngine;
 
@@ -20,11 +18,12 @@ namespace RD.SimilarTextsSearcher.SearchEngines
                     searchEngine = new SimMetricsLibrarySearchEngine(conf);
                     break;
                 }
-                //case SearchEngineType.FuzzySharp:
-                //{
-                //    searchEngine = new FuzzySharpSearchEngine(conf);
-                //    break;
-                //}
+                case SearchEngineType.FuzzySharp:
+                {
+                    var conf = confEngine.GetConfiguration<ConfigurationFuzzySharpLibrary>();
+                    searchEngine = new FuzzySharpSearchEngine(conf);
+                    break;
+                    }
                 default: 
                 { 
                     searchEngine = null;

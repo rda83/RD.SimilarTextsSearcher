@@ -1,5 +1,6 @@
 ﻿using RD.SimilarTextsSearcher.Models;
 using RD.SimilarTextsSearcher.SearchEngines;
+using RD.SimilarTextsSearcher.SearchEngines.Configurations;
 
 namespace RD.SimilarTextsSearcher
 {
@@ -8,27 +9,16 @@ namespace RD.SimilarTextsSearcher
         private AbstractSearchEngine _searchEngine;
         public SearchEngineType SearchEngineType { get; }
         
-        public SimilarTextsSearcher(SearchEngineType searchEngineType, ConfigurationSearchEngine conf)
+        public SimilarTextsSearcher(SearchEngineType searchEngineType, IConfigurationFactory conf)
         {
             SearchEngineType = searchEngineType;
             _searchEngine = SearchEngineFactory.GetSearchEngine(SearchEngineType, conf);
         }
 
-        public double GetSimilarity(TextsForComparison textsForComparison)
+        public OutputData GetSimilarity(InputData textsForComparison)
         {
-            
-            double result = _searchEngine.GetSimilarity(textsForComparison);
-
-            return result;
+            double similarity = _searchEngine.GetSimilarity(textsForComparison);
+            return new OutputData() { Value = textsForComparison, Similarity = similarity };
         }
-
-        // точка входа
-        // демо приложение
-        // Разные движки поиска SearchEngines (SimMetrics library, FuzzySharp)
-        // Модель входящих данных (разные источники входящих данных)
-        // Модель ответа
-        // Визуализация (объект, json, таблица(библиотека TUI))
-        // Многопоточность
-        // Бенчмарки (Benchmarkdotnet)
     }
 }

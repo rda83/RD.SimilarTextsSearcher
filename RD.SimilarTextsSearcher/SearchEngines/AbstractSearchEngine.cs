@@ -5,6 +5,6 @@ namespace RD.SimilarTextsSearcher.SearchEngines
 {
     public abstract class AbstractSearchEngine
     {
-        public abstract double GetSimilarity(TextsForComparison textsForComparison);
+        public abstract double GetSimilarity(InputData textsForComparison);
     }
 }
